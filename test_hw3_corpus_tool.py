@@ -1,6 +1,5 @@
-import argparse
-import os
 import hw3_corpus_tool
+import argparse
 
 def __main__():
     parser = argparse.ArgumentParser()
@@ -23,7 +22,7 @@ def __main__():
             pos = i.pos
             for p in pos:
                 a = p.token
-                b = p.pos
+                b = p.posß
             text = i.text
 
             print(i)

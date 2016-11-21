@@ -1,3 +1,6 @@
 .idea/
 544-3.iml
 labeled data/
+__pycache__/
+input/
+dev/
