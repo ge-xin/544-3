@@ -4,3 +4,4 @@ labeled data/
 __pycache__/
 input/
 dev/
+*.crfsuite
