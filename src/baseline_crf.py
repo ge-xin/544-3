@@ -13,11 +13,10 @@ import pycrfsuite
 #     text = utterance.text
 
 def dialog_feature(dialog, dialog_x, dialog_y):
-    utterance_x = []
-    utterance_y = []
+
     for i in range(0, len(dialog)):
         cur_utterance = dialog[i]
-        utterance_y.append(cur_utterance.act_tag)
+        dialog_y.append(cur_utterance.act_tag)
         cur_utterance_x = []
         '''
             a feature for whether or not the speaker has changed in comparison with the previous utterance.
@@ -35,7 +34,7 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         when pos = None, e.g. text = '<Laughter>', continue;, to avoid nullptr issue
         '''
         if cur_utterance.pos == None:
-            utterance_x.append(cur_utterance_x)
+            dialog_x.append(cur_utterance_x)
             continue
 
         '''
@@ -54,14 +53,13 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         '''
             push the cur_utterance_x into list_x
         '''
-        utterance_x.append(cur_utterance_x)
+        dialog_x.append(cur_utterance_x)
 
-    # dialog_x.append(utterance_x)
-    # dialog_y.append(utterance_y)
-    for x in utterance_x:
-        dialog_x.append(x)
-    for y in utterance_y:
-        dialog_y.append(y)
+
+    # for x in utterance_x:
+    #     dialog_x.append(x)
+    # for y in utterance_y:
+    #     dialog_y.append(y)
 
     # print()
 
@@ -81,15 +79,20 @@ def learn(input_dir):
         dialog_x = []
         dialog_y = []
         dialog_feature(dialog, dialog_x, dialog_y)
-        for x in dialog_x:
-            feature_list_x.append(x)
-        for y in dialog_y:
-            feature_list_y.append(y)
+        # for x in dialog_x:
+        #     feature_list_x.append(x)
+        # for y in dialog_y:
+        #     feature_list_y.append(y)
+        feature_list_x.append(dialog_x)
+        feature_list_y.append(dialog_y)
+
     '''
         Begin Fitting the model
     '''
     trainer = pycrfsuite.Trainer(verbose=True)
-    trainer.append(feature_list_x, feature_list_y)
+    # trainer.append(feature_list_x, feature_list_y)
+    for xseq, yseq in zip(feature_list_x, feature_list_y):
+        trainer.append(xseq, yseq)
 
     trainer.set_params({
         'c1': 1.0,   # coefficient for L1 penalty

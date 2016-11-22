@@ -1,6 +1,7 @@
 import argparse
 import os
 import src.baseline_crf
+import hw3_corpus_tool
 from src.baseline_crf import dialog_feature
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ if __name__ == '__main__':
     dev_dir = args.DEVDIR
     output_file = args.OUTPUTFILE
 
-    output = open(output_file, 'r')
+    # output = open(output_file, 'r')
 
     du_dict = hw3_corpus_tool.get_data(dev_dir)
 
@@ -26,6 +27,8 @@ if __name__ == '__main__':
             feature_list_x.append(x)
         for y in dialog_y:
             feature_list_y.append(y)
+
+
 
     print()
 
