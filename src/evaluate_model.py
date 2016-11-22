@@ -1,8 +1,5 @@
 import argparse
-import os
-import src.baseline_crf
-import hw3_corpus_tool
-from src.baseline_crf import dialog_feature
+from src.baseline_crf import extract_feature
 
 if __name__ == '__main__':
     parser1 = argparse.ArgumentParser()
@@ -13,22 +10,21 @@ if __name__ == '__main__':
     dev_dir = args.DEVDIR
     output_file = args.OUTPUTFILE
 
-    # output = open(output_file, 'r')
-
-    du_dict = hw3_corpus_tool.get_data(dev_dir)
-
     feature_list_x = []
     feature_list_y = []
-    for dialog in du_dict:
-        dialog_x = []
-        dialog_y = []
-        dialog_feature(dialog, dialog_x, dialog_y)
-        for x in dialog_x:
-            feature_list_x.append(x)
-        for y in dialog_y:
-            feature_list_y.append(y)
+    dialog_filenames = extract_feature(dev_dir, feature_list_x, feature_list_y)
 
+    output = open(output_file, 'r')
+    total = 0
+    correct = 0
+    for actual_dialog_y in feature_list_y:
+        output.readline()
+        for actual_utterance_tag in actual_dialog_y:
+            total += 1
+            # utterance_tag = output.readline().strip()
+            if output.readline().strip() == actual_utterance_tag : correct += 1
+        output.readline()
 
-
-    print()
+    precision = correct / total
+    print(precision)
 

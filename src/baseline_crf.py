@@ -2,18 +2,10 @@ import argparse
 import os
 import hw3_corpus_tool
 import pycrfsuite
+import glob
 
-# def utterance_feature(utterance, utterance_x, utterance_y):
-#     act_tag = utterance.act_tag
-#     speaker = utterance.speaker
-#     pos = utterance.pos
-#     for p in pos:
-#         a = p.token
-#         b = p.pos
-#     text = utterance.text
 
 def dialog_feature(dialog, dialog_x, dialog_y):
-
     for i in range(0, len(dialog)):
         cur_utterance = dialog[i]
         dialog_y.append(cur_utterance.act_tag)
@@ -56,28 +48,19 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         dialog_x.append(cur_utterance_x)
 
 
-    # for x in utterance_x:
-    #     dialog_x.append(x)
-    # for y in utterance_y:
-    #     dialog_y.append(y)
-
-    # print()
-
-def extract_feature(input_dir, feature_list_x, feature_list_y):
-    du_dict = hw3_corpus_tool.get_data(input_dir)
-
+def extract_feature(data_dir, feature_list_x, feature_list_y):
+    du_dict = hw3_corpus_tool.get_data(data_dir)
+    dialog_filenames = sorted(glob.glob(os.path.join(data_dir, "*.csv")))
     for dialog in du_dict:
         dialog_x = []
         dialog_y = []
         dialog_feature(dialog, dialog_x, dialog_y)
         feature_list_x.append(dialog_x)
         feature_list_y.append(dialog_y)
+    return dialog_filenames
+
 
 def learn(input_dir):
-    '''
-    :param input_dir:
-    :return:
-    '''
     '''
         Feature extraction
     '''
@@ -89,7 +72,6 @@ def learn(input_dir):
         Begin Fitting the model
     '''
     trainer = pycrfsuite.Trainer(verbose=True)
-    # trainer.append(feature_list_x, feature_list_y)
     for xseq, yseq in zip(feature_list_x, feature_list_y):
         trainer.append(xseq, yseq)
 
@@ -109,15 +91,14 @@ def learn(input_dir):
     print(trainer.logparser.iterations[-1])
     # print()
 
+
 def classify(test_dir, output_file):
-
-
     '''
        Feature extraction
     '''
     feature_list_x = []
     feature_list_y = []
-    extract_feature(test_dir, feature_list_x, feature_list_y)
+    dialog_filenames = extract_feature(test_dir, feature_list_x, feature_list_y)
 
     '''
         classification/tagging
@@ -125,11 +106,18 @@ def classify(test_dir, output_file):
     tagger = pycrfsuite.Tagger()
     tagger.open('baseline_crf_model.crfsuite')
 
-    for x in feature_list_x:
-        print(tagger.tag(x))
+    f = open(output_file, 'w')
 
+    for i in range(0, len(feature_list_x)):
+        utterance_tags = tagger.tag(feature_list_x[i])
+        names = dialog_filenames[i].split('/')
+        file_name = names[len(names) - 1]
+        f.write(file_name+'\n')
+        for tag in utterance_tags:
+            f.write(tag+'\n')
+        f.write('\n')
 
-    print()
+    # print()
 
 
 if __name__ == '__main__':
