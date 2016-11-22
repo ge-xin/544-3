@@ -1,7 +1,7 @@
 import argparse
 import os
 
-def __main__():
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUTDIR', help='reads in a directory of CSV files (INPUTDIR), train a CRFsuite model')
     parser.add_argument('TESTDIR', help='tag the CSV files in (TESTDIR)')
@@ -14,5 +14,3 @@ def __main__():
 
     print()
     print()
-
-__main__()

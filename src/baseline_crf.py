@@ -94,7 +94,7 @@ def learn(input_dir):
     trainer.set_params({
         'c1': 1.0,   # coefficient for L1 penalty
         'c2': 1e-3,  # coefficient for L2 penalty
-        'max_iterations': 250,  # stop earlier
+        'max_iterations': 100,  # stop earlier
 
         # include transitions that are possible, but not observed
         'feature.possible_transitions': True
@@ -107,10 +107,39 @@ def learn(input_dir):
     print(trainer.logparser.iterations[-1])
     # print()
 
-def classify():
+def classify(test_dir, output_file):
+
+
+    '''
+       Feature extraction
+    '''
+    du_dict = hw3_corpus_tool.get_data(test_dir)
+
+    feature_list_x = []
+    feature_list_y = []
+    for dialog in du_dict:
+        dialog_x = []
+        dialog_y = []
+        dialog_feature(dialog, dialog_x, dialog_y)
+        for x in dialog_x:
+            feature_list_x.append(x)
+        for y in dialog_y:
+            feature_list_y.append(y)
+
+    '''
+        classification/tagging
+    '''
+    tagger = pycrfsuite.Tagger()
+    tagger.open('baseline_crf_model.crfsuite')
+
+    for x in feature_list_x:
+        print(tagger.tag(x))
+
+
     print()
 
-def __main__():
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUTDIR', help='reads in a directory of CSV files (INPUTDIR), train a CRFsuite model')
     parser.add_argument('TESTDIR', help='tag the CSV files in (TESTDIR)')
@@ -122,6 +151,4 @@ def __main__():
     output_file = args.OUTPUTFILE
 
     learn(input_dir)
-
-
-__main__()
+    # classify(test_dir, output_file)

@@ -1,7 +1,7 @@
 import hw3_corpus_tool
 import argparse
 
-def __main__():
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUTDIR', help='reads in a directory of CSV files (INPUTDIR), train a CRFsuite model')
     parser.add_argument('TESTDIR', help='tag the CSV files in (TESTDIR)')
@@ -28,5 +28,3 @@ def __main__():
             print(i)
 
     print()
-
-__main__()

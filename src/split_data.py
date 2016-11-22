@@ -8,7 +8,7 @@ dest = '/Users/Xin/Desktop/544_3_labeled_data_splited/'
 train_directory = dest+'train/'
 dev_directory = dest+'dev/'
 
-def __main():
+if __name__ == '__main__':
     data_lst = []
     data_name = []
     for root, dirs, files in os.walk(source):
@@ -48,5 +48,3 @@ def __main():
     for i in range(0, len(data_lst)):
         shutil.copyfile(data_lst[i], dev_directory + data_name[i])
 
-
-__main()
