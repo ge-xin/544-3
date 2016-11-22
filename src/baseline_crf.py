@@ -63,7 +63,7 @@ def dialog_feature(dialog, dialog_x, dialog_y):
     for y in utterance_y:
         dialog_y.append(y)
 
-    print()
+    # print()
 
 def learn(input_dir):
     '''
@@ -105,7 +105,7 @@ def learn(input_dir):
     print(trainer.logparser.last_iteration)
     print(len(trainer.logparser.iterations), end=' ')
     print(trainer.logparser.iterations[-1])
-    print()
+    # print()
 
 def classify():
     print()
