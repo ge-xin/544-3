@@ -4,8 +4,43 @@ import hw3_corpus_tool
 import pycrfsuite
 import glob
 
+def n_gram_feature(cur_utterance, cur_utterance_x, n):
+    '''
+    :param cur_utterance: is dialog_i, is the data read in
+    :param cur_utterance_x: the feature list, there is no change to y
+    :param n: means n gram
+    :return: use cur_utterance_x, by using reference, acutally no return
+    '''
+
+    '''
+        extract n_gram for token
+    '''
+    for i in range(0, len(cur_utterance.pos) - n + 1):
+        n_gram = ''
+        #get current n_gram for token
+        for j in range(i, i + n):
+            cur_pos = cur_utterance.pos[i]
+            n_gram += cur_pos.token + ' '
+        cur_utterance_x.append('token_gram:'+n_gram[:len(n_gram) - 1])
+
+    '''
+        extract n_gram for pos
+    '''
+    for i in range(0, len(cur_utterance.pos) - n + 1):
+        n_gram = ''
+        #get current n_gram for token
+        for j in range(i, i + n):
+            cur_pos = cur_utterance.pos[i]
+            n_gram += cur_pos.token + ' '
+        cur_utterance_x.append('pos_gram:'+n_gram[:len(n_gram) - 1])
 
 def dialog_feature(dialog, dialog_x, dialog_y):
+    '''
+    :param dialog: is a list of dialogs, is the data read in
+    :param dialog_x: as a return of features of dialogs
+    :param dialog_y: as y of dialogs
+    :return: dialog_x, dialog_y, by using reference, actually no return
+    '''
     for i in range(0, len(dialog)):
         cur_utterance = dialog[i]
         dialog_y.append(cur_utterance.act_tag)
@@ -42,6 +77,13 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         for j in range(0, len(cur_utterance.pos)):
             p = cur_utterance.pos[j]
             cur_utterance_x.append('pos_'+str(j)+':'+p.pos)
+
+        '''
+            add new feature here
+        '''
+        n_gram_feature(cur_utterance, cur_utterance_x, 2)
+
+
         '''
             push the cur_utterance_x into list_x
         '''
@@ -71,7 +113,8 @@ def learn(input_dir):
     '''
         Begin Fitting the model
     '''
-    trainer = pycrfsuite.Trainer(verbose=False)
+    # trainer = pycrfsuite.Trainer(verbose=False)
+    trainer = pycrfsuite.Trainer(verbose=True)
     for xseq, yseq in zip(feature_list_x, feature_list_y):
         trainer.append(xseq, yseq)
 
@@ -84,7 +127,7 @@ def learn(input_dir):
         'feature.possible_transitions': True
     })
 
-    trainer.train('baseline_crf_model.crfsuite')
+    trainer.train('advanced_crf_model.crfsuite')
 
     # print(trainer.logparser.last_iteration)
     # print(len(trainer.logparser.iterations), end=' ')
