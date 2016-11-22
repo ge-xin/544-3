@@ -82,10 +82,10 @@ def dialog_feature(dialog, dialog_x, dialog_y):
             add new feature here
         '''
         n_gram_feature(cur_utterance, cur_utterance_x, 2)
-        n_gram_feature(cur_utterance, cur_utterance_x, 3)
-        n_gram_feature(cur_utterance, cur_utterance_x, 4)
-        n_gram_feature(cur_utterance, cur_utterance_x, 5)
-        n_gram_feature(cur_utterance, cur_utterance_x, 6)
+        # n_gram_feature(cur_utterance, cur_utterance_x, 3)
+        # n_gram_feature(cur_utterance, cur_utterance_x, 4)
+        # n_gram_feature(cur_utterance, cur_utterance_x, 5)
+        # n_gram_feature(cur_utterance, cur_utterance_x, 6)
         '''
             push the cur_utterance_x into list_x
         '''

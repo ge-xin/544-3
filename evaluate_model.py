@@ -1,5 +1,6 @@
 import argparse
-from src.baseline_crf import extract_feature
+
+from baseline_crf import extract_feature
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
