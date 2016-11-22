@@ -71,7 +71,7 @@ def learn(input_dir):
     '''
         Begin Fitting the model
     '''
-    trainer = pycrfsuite.Trainer(verbose=True)
+    trainer = pycrfsuite.Trainer(verbose=False)
     for xseq, yseq in zip(feature_list_x, feature_list_y):
         trainer.append(xseq, yseq)
 
@@ -86,9 +86,9 @@ def learn(input_dir):
 
     trainer.train('baseline_crf_model.crfsuite')
 
-    print(trainer.logparser.last_iteration)
-    print(len(trainer.logparser.iterations), end=' ')
-    print(trainer.logparser.iterations[-1])
+    # print(trainer.logparser.last_iteration)
+    # print(len(trainer.logparser.iterations), end=' ')
+    # print(trainer.logparser.iterations[-1])
     # print()
 
 
@@ -112,7 +112,7 @@ def classify(test_dir, output_file):
         utterance_tags = tagger.tag(feature_list_x[i])
         names = dialog_filenames[i].split('/')
         file_name = names[len(names) - 1]
-        f.write(file_name+'\n')
+        f.write('Filename="'+file_name+'"\n')
         for tag in utterance_tags:
             f.write(tag+'\n')
         f.write('\n')
@@ -131,5 +131,5 @@ if __name__ == '__main__':
     test_dir = args.TESTDIR
     output_file = args.OUTPUTFILE
 
-    # learn(input_dir)
+    learn(input_dir)
     classify(test_dir, output_file)
