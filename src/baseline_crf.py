@@ -63,6 +63,16 @@ def dialog_feature(dialog, dialog_x, dialog_y):
 
     # print()
 
+def extract_feature(input_dir, feature_list_x, feature_list_y):
+    du_dict = hw3_corpus_tool.get_data(input_dir)
+
+    for dialog in du_dict:
+        dialog_x = []
+        dialog_y = []
+        dialog_feature(dialog, dialog_x, dialog_y)
+        feature_list_x.append(dialog_x)
+        feature_list_y.append(dialog_y)
+
 def learn(input_dir):
     '''
     :param input_dir:
@@ -71,20 +81,9 @@ def learn(input_dir):
     '''
         Feature extraction
     '''
-    du_dict = hw3_corpus_tool.get_data(input_dir)
-
     feature_list_x = []
     feature_list_y = []
-    for dialog in du_dict:
-        dialog_x = []
-        dialog_y = []
-        dialog_feature(dialog, dialog_x, dialog_y)
-        # for x in dialog_x:
-        #     feature_list_x.append(x)
-        # for y in dialog_y:
-        #     feature_list_y.append(y)
-        feature_list_x.append(dialog_x)
-        feature_list_y.append(dialog_y)
+    extract_feature(input_dir, feature_list_x, feature_list_y)
 
     '''
         Begin Fitting the model
@@ -116,18 +115,9 @@ def classify(test_dir, output_file):
     '''
        Feature extraction
     '''
-    du_dict = hw3_corpus_tool.get_data(test_dir)
-
     feature_list_x = []
     feature_list_y = []
-    for dialog in du_dict:
-        dialog_x = []
-        dialog_y = []
-        dialog_feature(dialog, dialog_x, dialog_y)
-        for x in dialog_x:
-            feature_list_x.append(x)
-        for y in dialog_y:
-            feature_list_y.append(y)
+    extract_feature(test_dir, feature_list_x, feature_list_y)
 
     '''
         classification/tagging
@@ -153,5 +143,5 @@ if __name__ == '__main__':
     test_dir = args.TESTDIR
     output_file = args.OUTPUTFILE
 
-    learn(input_dir)
-    # classify(test_dir, output_file)
+    # learn(input_dir)
+    classify(test_dir, output_file)
