@@ -129,7 +129,7 @@ def learn(input_dir):
         'feature.possible_transitions': True
     })
 
-    trainer.train('advanced_crf_model.crfsuite')
+    trainer.train('baseline_crf_no_prefix_model.crfsuite')
 
     # print(trainer.logparser.last_iteration)
     # print(len(trainer.logparser.iterations), end=' ')
@@ -149,7 +149,7 @@ def classify(test_dir, output_file):
         classification/tagging
     '''
     tagger = pycrfsuite.Tagger()
-    tagger.open('advanced_crf_model.crfsuite')
+    tagger.open('baseline_crf_no_prefix_model.crfsuite')
 
     f = open(output_file, 'w')
 
