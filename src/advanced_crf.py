@@ -19,9 +19,9 @@ def n_gram_feature(cur_utterance, cur_utterance_x, n):
         n_gram = ''
         #get current n_gram for token
         for j in range(i, i + n):
-            cur_pos = cur_utterance.pos[i]
+            cur_pos = cur_utterance.pos[j]
             n_gram += cur_pos.token + ' '
-        cur_utterance_x.append('token_gram:'+n_gram[:len(n_gram) - 1])
+        cur_utterance_x.append('token_'+str(n)+'_gram:'+n_gram[:len(n_gram) - 1])
 
     '''
         extract n_gram for pos
@@ -30,9 +30,9 @@ def n_gram_feature(cur_utterance, cur_utterance_x, n):
         n_gram = ''
         #get current n_gram for token
         for j in range(i, i + n):
-            cur_pos = cur_utterance.pos[i]
+            cur_pos = cur_utterance.pos[j]
             n_gram += cur_pos.token + ' '
-        cur_utterance_x.append('pos_gram:'+n_gram[:len(n_gram) - 1])
+        cur_utterance_x.append('pos_'+str(n)+'_gram:'+n_gram[:len(n_gram) - 1])
 
 def dialog_feature(dialog, dialog_x, dialog_y):
     '''
@@ -82,8 +82,10 @@ def dialog_feature(dialog, dialog_x, dialog_y):
             add new feature here
         '''
         n_gram_feature(cur_utterance, cur_utterance_x, 2)
-
-
+        n_gram_feature(cur_utterance, cur_utterance_x, 3)
+        n_gram_feature(cur_utterance, cur_utterance_x, 4)
+        n_gram_feature(cur_utterance, cur_utterance_x, 5)
+        n_gram_feature(cur_utterance, cur_utterance_x, 6)
         '''
             push the cur_utterance_x into list_x
         '''
@@ -147,7 +149,7 @@ def classify(test_dir, output_file):
         classification/tagging
     '''
     tagger = pycrfsuite.Tagger()
-    tagger.open('baseline_crf_model.crfsuite')
+    tagger.open('advanced_crf_model.crfsuite')
 
     f = open(output_file, 'w')
 

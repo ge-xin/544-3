@@ -71,7 +71,8 @@ def learn(input_dir):
     '''
         Begin Fitting the model
     '''
-    trainer = pycrfsuite.Trainer(verbose=False)
+    # trainer = pycrfsuite.Trainer(verbose=False)
+    trainer = pycrfsuite.Trainer()
     for xseq, yseq in zip(feature_list_x, feature_list_y):
         trainer.append(xseq, yseq)
 
