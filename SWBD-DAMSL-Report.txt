@@ -1,14 +1,29 @@
 Assignment 3 Report
 
-Name:
+Name: Xin Ge
 
 1. If you included files other than baseline_crf.py, advanced_crf.py, evaluate_model.py, and hw3_corpus_tool.py, or modified hw3_corpus_tool.py please describe what the files do and/or your modifications to hw3_corpus_tool.py.
+
+split_data.py, to split the data into two categories, train and dev.
 
 2. Describe how you evaluated your baseline and advanced features
 
 Replace this text with a description of how you used the labeled data
 to train and evaluate different models (e.g., moving ~25% data into a
 separate development directory).
+
+
+(2)Evaluate models:
+Because evaluate_model.py has two parameters:
+1. dev directory 2. the output file of the model
+In addition, I have added a optional paramter to test two output files, but the way of evaluate is the same.
+
+Precision = num_of_correctly_classified_utterances / sum_of_utterances 
+
+In order to know how many utterances are correctly labeled, I need to read the dev data, get the label and compare.
+Rather than read the file name from output.txt, I choose to sort the file by name. Because all the files in dev folder are read in the same sorted order.
+
+Then the program knows the relationship between files and tags, and can calculate utterances that are correctly labeled. And after that, print the precision.
 
 3. Describe your advanced feature set.
 

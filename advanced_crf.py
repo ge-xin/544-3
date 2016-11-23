@@ -19,9 +19,9 @@ def n_gram_feature(cur_utterance, cur_utterance_x, n):
         n_gram = ''
         #get current n_gram for token
         for j in range(i, i + n):
-            cur_pos = cur_utterance.pos[j]
-            n_gram += cur_pos.token + ' '
-        cur_utterance_x.append('token_'+str(n)+'_gram:'+n_gram[:len(n_gram) - 1])
+            cur = cur_utterance.pos[j]
+            n_gram += cur.token.lower() + ' '
+        cur_utterance_x.append('TOKEN_'+str(n)+'_GRAM:'+n_gram[:len(n_gram) - 1])
 
     '''
         extract n_gram for pos
@@ -30,9 +30,9 @@ def n_gram_feature(cur_utterance, cur_utterance_x, n):
         n_gram = ''
         #get current n_gram for token
         for j in range(i, i + n):
-            cur_pos = cur_utterance.pos[j]
-            n_gram += cur_pos.token + ' '
-        cur_utterance_x.append('pos_'+str(n)+'_gram:'+n_gram[:len(n_gram) - 1])
+            cur = cur_utterance.pos[j]
+            n_gram += cur.pos + ' '
+        cur_utterance_x.append('POS_'+str(n)+'_GRAM:'+n_gram[:len(n_gram) - 1])
 
 def dialog_feature(dialog, dialog_x, dialog_y):
     '''
@@ -69,14 +69,14 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         '''
         for j in range(0, len(cur_utterance.pos)):
             p = cur_utterance.pos[j]
-            cur_utterance_x.append('token_'+str(j)+':'+p.token)
+            cur_utterance_x.append('TOKEN:'+p.token.lower())
 
         '''
             a feature for every part of speech tag in the utterance (e.g., POS_PRP POS_RB POS_VBP POS_.).
         '''
         for j in range(0, len(cur_utterance.pos)):
             p = cur_utterance.pos[j]
-            cur_utterance_x.append('pos_'+str(j)+':'+p.pos)
+            cur_utterance_x.append('POS:'+p.pos)
 
         '''
             add new feature here

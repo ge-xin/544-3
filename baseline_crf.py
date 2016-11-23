@@ -34,14 +34,14 @@ def dialog_feature(dialog, dialog_x, dialog_y):
         '''
         for j in range(0, len(cur_utterance.pos)):
             p = cur_utterance.pos[j]
-            cur_utterance_x.append('token_'+str(j)+':'+p.token)
+            cur_utterance_x.append('TOKEN:'+p.token.lower())
 
         '''
             a feature for every part of speech tag in the utterance (e.g., POS_PRP POS_RB POS_VBP POS_.).
         '''
         for j in range(0, len(cur_utterance.pos)):
             p = cur_utterance.pos[j]
-            cur_utterance_x.append('pos_'+str(j)+':'+p.pos)
+            cur_utterance_x.append('POS:'+p.pos)
         '''
             push the cur_utterance_x into list_x
         '''

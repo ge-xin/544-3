@@ -6,3 +6,4 @@ dev/
 *.crfsuite
 labeled_data/
 *.txt
+*.swp
