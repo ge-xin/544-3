@@ -4,6 +4,8 @@ import hw3_corpus_tool
 import pycrfsuite
 import glob
 
+max_iter = 150
+output_verbose = False
 
 def dialog_feature(dialog, dialog_x, dialog_y):
     for i in range(0, len(dialog)):
@@ -71,15 +73,14 @@ def learn(input_dir):
     '''
         Begin Fitting the model
     '''
-    # trainer = pycrfsuite.Trainer(verbose=False)
-    trainer = pycrfsuite.Trainer()
+    trainer = pycrfsuite.Trainer(verbose=output_verbose)
     for xseq, yseq in zip(feature_list_x, feature_list_y):
         trainer.append(xseq, yseq)
 
     trainer.set_params({
         'c1': 1.0,   # coefficient for L1 penalty
         'c2': 1e-3,  # coefficient for L2 penalty
-        'max_iterations': 200,  # stop earlier
+        'max_iterations': max_iter,  # stop earlier
 
         # include transitions that are possible, but not observed
         'feature.possible_transitions': True
