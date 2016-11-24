@@ -5,6 +5,7 @@ Name: Xin Ge
 1. If you included files other than baseline_crf.py, advanced_crf.py, evaluate_model.py, and hw3_corpus_tool.py, or modified hw3_corpus_tool.py please describe what the files do and/or your modifications to hw3_corpus_tool.py.
 
 split_data.py, to split the data into two categories, train and dev.
+k_fold_data.py and k_split_data.py: split the data into n pieces, to generate the data for cross validation.
 
 2. Describe how you evaluated your baseline and advanced features
 
