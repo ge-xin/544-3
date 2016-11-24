@@ -43,7 +43,7 @@ I have tried different grams, but I have tested and find out that 2-gram of tags
 (2) 2-gram+3-gram, 2-gram + 4-gram, 2-gram + 5-gram, 3-gram + 4-gram, etc
 I have tested and find out that they are not as good as 2-gram only	
 (3) 2-gram + 3-gram + 4-gram, 3-gram + 4-gram + 5-gram etc.
-
+(4) 2-gram of 'token+pos_tag'
 
 5. Accuracy of baseline features was: 0.7184135230780815
 6. Accuracy of advanced features was: 0.7340373465853475
