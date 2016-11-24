@@ -12,6 +12,10 @@ Replace this text with a description of how you used the labeled data
 to train and evaluate different models (e.g., moving ~25% data into a
 separate development directory).
 
+(1)How I used the labeled data to train:
+First, I use split_data.py I wrote to spilt. I give a source directory as the input to the split_data.py, and randomly pick and copy 75% of the data to train folder, and rest of them to dev folder.
+
+Then I use the script given to load the data, and construct the 
 
 (2)Evaluate models:
 Because evaluate_model.py has two parameters:
@@ -26,8 +30,19 @@ Rather than read the file name from output.txt, I choose to sort the file by nam
 Then the program knows the relationship between files and tags, and can calculate utterances that are correctly labeled. And after that, print the precision.
 
 3. Describe your advanced feature set.
+In addition to baseline features, I have add two list of 2-grams
+The first list is a list of 2-grams of tokens.
+The second list is a list of 2-grams of tags.
+The reason why I choose 2-gram is that I think there will be some short phrases that occurs frequently and bears some meaning.
 
 4. If you tried alternate advanced feature sets, please describe them.
+
+(1) 3-gram, 4-gram, 5-gram, 6-gram of tags and tokens
+I have tried different grams, but I have tested and find out that 2-gram of tags and tokens are the best.
+(2) 2-gram+3-gram, 2-gram + 4-gram, 2-gram + 5-gram, 3-gram + 4-gram, etc
+I have tested and find out that they are not as good as 2-gram only	
+(3) 2-gram + 3-gram + 4-gram, 3-gram + 4-gram + 5-gram etc.
+
 
 5. Accuracy of baseline features was: 0.7184135230780815
 6. Accuracy of advanced features was: 0.7340373465853475
