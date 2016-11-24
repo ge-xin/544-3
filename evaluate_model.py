@@ -48,6 +48,14 @@ if __name__ == '__main__':
     print('{0:20} : {1:100}'.format('output: ', str(precision)))
     # print('output: ' + str(precision))
     if args.OTHEROUTPUTFILE:
-        print('{0:20} : {1:100}'.format('advanced_output: ', str(other_correct/total)))
+        advanced_precision= other_correct/total
+        print('{0:20} : {1:100}'.format('advanced_output: ', str(advanced_precision)))
         # print('advanced_output: ' + str(other_correct/total))
+        print()
+        if(precision > advanced_precision):
+            print('{0:20} : {1:100}'.format('baseline higher: ', str(precision - advanced_precision)))
+        elif precision < advanced_precision:
+            print('{0:20} : {1:100}'.format('advanced higher: ', str(advanced_precision - precision)))
+        else:
+            print('SAME.')
 
