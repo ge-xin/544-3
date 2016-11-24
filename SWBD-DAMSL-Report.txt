@@ -15,7 +15,7 @@ separate development directory).
 (1)How I used the labeled data to train:
 First, I use split_data.py I wrote to spilt. I give a source directory as the input to the split_data.py, and randomly pick and copy 75% of the data to train folder, and rest of them to dev folder.
 
-Then I use the script given to load the data, and construct the 
+Then I use the script given to load the data, and construct the model, then use the model as instructed by turtorial to train.
 
 (2)Evaluate models:
 Because evaluate_model.py has two parameters:
